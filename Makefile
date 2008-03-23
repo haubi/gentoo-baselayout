@@ -7,12 +7,15 @@
 # It also has the added bonus of being easier to install on systems
 # without an ebuild style package manager.
 
-SUBDIRS = etc share
+PKG = $(shell sed -n '/^\*/s:\*\([^ ]*\).*:\1:p' ChangeLog)
 
-NAME = baselayout
-VERSION = 2.0.0
+DESTDIR =
+LIB = lib
 
-PKG = $(NAME)-$(VERSION)
+INSTALL_DIR    = install -m 0755 -d
+INSTALL_EXE    = install -m 0755
+INSTALL_FILE   = install -m 0644
+INSTALL_SECURE = install -m 0600
 
 ifeq ($(OS),)
 OS=$(shell uname -s)
@@ -21,23 +24,27 @@ OS=BSD
 endif
 endif
 
-KEEP_DIRS = /boot /home /mnt /root /proc \
+KEEP_DIRS-Linux += /dev /sys
+KEEP_DIRS = $(KEEP_DIRS-$(OS)) \
+	/boot /home /mnt /root /proc /etc/profile.d \
 	/usr/local/bin /usr/local/sbin /usr/local/share/doc /usr/local/share/man \
 	/var/lock /var/run /var/empty
 
-ifeq ($(OS),Linux)
-	KEEP_DIRS += /dev /sys
-endif
+all:
 
-TOPDIR = .
-include $(TOPDIR)/default.mk
+clean:
 
-install::
+install:
 	# These dirs may not exist from prior versions
 	for x in $(BASE_DIRS) ; do \
 		$(INSTALL_DIR) $(DESTDIR)$$x || exit $$? ; \
 		touch $(DESTDIR)$$x/.keep || exit $$? ; \
 	done
+
+	$(INSTALL_DIR) $(DESTDIR)/etc
+	cp -pPR etc/* etc.$(OS)/* $(DESTDIR)/etc/
+	$(INSTALL_DIR) $(DESTDIR)/usr/share/baselayout
+	cp -pPR share.$(OS)/* $(DESTDIR)/usr/share/baselayout/
 
 layout:
 	# Create base filesytem layout
@@ -67,15 +74,22 @@ diststatus:
 		fi \
 	fi 
 
-distforce:
+distlive:
+	rm -rf /tmp/$(PKG)
+	cp -r . /tmp/$(PKG)
+	tar jcf /tmp/$(PKG).tar.bz2 -C /tmp $(PKG) --exclude=.svn
+	rm -rf /tmp/$(PKG)
+	ls -l /tmp/$(PKG).tar.bz2
+
+distsvn:
 	rm -rf /tmp/$(PKG)
 	svn export -q . /tmp/$(PKG)
 	tar jcf /tmp/$(PKG).tar.bz2 -C /tmp $(PKG)
 	rm -rf /tmp/$(PKG)
 	ls -l /tmp/$(PKG).tar.bz2
 
-dist: diststatus distforce
+dist: diststatus distsvn
 
-.PHONY: layout dist distforce diststatus
+.PHONY: all clean install layout dist distforce diststatus
 
 # vim: set ts=4 :
