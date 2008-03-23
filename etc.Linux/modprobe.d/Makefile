@@ -1,4 +1,4 @@
-DIR   = /etc/modules.d
+DIR   = /etc/modprobe.d
 FILES_NOEXIST = aliases i386 
 
 TOPDIR = ../..
