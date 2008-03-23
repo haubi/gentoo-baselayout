@@ -1,5 +1,5 @@
 # baselayout Makefile
-# Copyright 2006-2007 Gentoo Foundation
+# Copyright 2006-2008 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 #
 # We've moved the installation logic from Gentoo ebuild into a generic
@@ -21,9 +21,9 @@ OS=BSD
 endif
 endif
 
-KEEP_DIRS = /boot /home /mnt /root \
+KEEP_DIRS = /boot /home /mnt /root /proc \
 	/usr/local/bin /usr/local/sbin /usr/local/share/doc /usr/local/share/man \
-	/var/lock /var/run
+	/var/lock /var/run /var/empty
 
 ifeq ($(OS),Linux)
 	KEEP_DIRS += /dev /sys
@@ -69,23 +69,13 @@ diststatus:
 
 distforce:
 	rm -rf /tmp/$(PKG)
-	cp -pPR . /tmp/$(PKG)
-	$(MAKE) -C /tmp/$(PKG) clean
-	(find /tmp/$(PKG) -type d -name .svn -exec rm -rf {} \; 2>/dev/null; exit 0)
-	tar -C /tmp -cvjpf /tmp/$(PKG).tar.bz2 $(PKG)
+	svn export -q . /tmp/$(PKG)
+	tar jcf /tmp/$(PKG).tar.bz2 -C /tmp $(PKG)
 	rm -rf /tmp/$(PKG)
 	ls -l /tmp/$(PKG).tar.bz2
 
-distit:
-	rm -rf /tmp/$(PKG)
-	svn export . /tmp/$(PKG)
-	$(MAKE) -C /tmp/$(PKG) clean
-	tar -C /tmp -cvjpf /tmp/$(PKG).tar.bz2 $(PKG)
-	rm -rf /tmp/$(PKG)
-	ls -l /tmp/$(PKG).tar.bz2
+dist: diststatus distforce
 
-dist: diststatus distit
-
-.PHONY: layout dist distforce distit diststatus
+.PHONY: layout dist distforce diststatus
 
 # vim: set ts=4 :
