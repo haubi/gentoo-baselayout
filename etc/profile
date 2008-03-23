@@ -9,6 +9,8 @@
 if [ -e /etc/profile.env ] ; then
 	. /etc/profile.env
 fi
+export EDITOR=${EDITOR:-/bin/nano}
+export PAGER=${PAGER:-/usr/bin/less}
 
 # 077 would be more secure, but 022 is generally quite realistic
 umask 022
@@ -49,11 +51,7 @@ else
 	# Setup a bland default prompt.  Since this prompt should be useable
 	# on color and non-color terminals, as well as shells that don't
 	# understand sequences such as \h, don't put anything special in it.
-	if type whoami >/dev/null 2>/dev/null && \
-		type cut >/dev/null 2>/dev/null && \
-		type uname >/dev/null 2>/dev/null ; then
-		PS1="`whoami`@`uname -n | cut -f1 -d.` \$ "
-	fi
+	PS1="${USER:-$(type whoami >/dev/null && whoami)}@$(type uname >/dev/null && uname -n) \$ "
 fi
 
 for sh in /etc/profile.d/*.sh ; do

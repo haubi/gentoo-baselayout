@@ -10,10 +10,6 @@
 #
 # See the manpage fstab(5) for more information.
 #
-# Keep in mind that the boot scripts will ignore many of the core mounts
-# (like /proc or /dev or /dev/shm) unless you set RC_USE_FSTAB in your
-# /etc/conf.d/rc file appropriately.
-#
 
 # <fs>			<mountpoint>	<type>		<opts>		<dump/pass>
 
