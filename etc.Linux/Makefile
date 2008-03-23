@@ -1,4 +1,4 @@
-SUBDIRS = modules.d modules.autoload.d
+SUBDIRS = modules.d
 DIR   = /etc
 FILES = filesystems inputrc issue issue.logo
 FILES_NOEXIST = sysctl.conf

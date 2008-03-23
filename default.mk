@@ -4,12 +4,10 @@
 DESTDIR = /
 ROOT = /
 LIB = lib
-RC_LIB = /$(LIB)/rc
 
 #
 # Recursive rules
 #
-
 SUBDIRS_ALL     = $(patsubst %,%_all,$(SUBDIRS))
 SUBDIRS_CLEAN   = $(patsubst %,%_clean,$(SUBDIRS))
 SUBDIRS_INSTALL = $(patsubst %,%_install,$(SUBDIRS))
@@ -33,7 +31,6 @@ install:: $(SUBDIRS_INSTALL)
 #
 # Install rules
 #
-
 INSTALL_DIR    = install -m 0755 -d
 INSTALL_EXE    = install -m 0755
 INSTALL_FILE   = install -m 0644

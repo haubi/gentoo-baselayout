@@ -7,10 +7,10 @@
 # It also has the added bonus of being easier to install on systems
 # without an ebuild style package manager.
 
-SUBDIRS = conf.d etc init.d man net sh share src
+SUBDIRS = etc share
 
 NAME = baselayout
-VERSION = 2.0.0_rc6
+VERSION = 2.0.0
 
 PKG = $(NAME)-$(VERSION)
 
@@ -21,17 +21,12 @@ OS=BSD
 endif
 endif
 
-BASE_DIRS = $(RC_LIB)/init.d $(RC_LIB)/tmp
 KEEP_DIRS = /boot /home /mnt /root \
 	/usr/local/bin /usr/local/sbin /usr/local/share/doc /usr/local/share/man \
 	/var/lock /var/run
 
 ifeq ($(OS),Linux)
 	KEEP_DIRS += /dev /sys
-	NET_LO = net.lo
-endif
-ifneq ($(OS),Linux)
-	NET_LO = net.lo0
 endif
 
 TOPDIR = .
@@ -43,22 +38,6 @@ install::
 		$(INSTALL_DIR) $(DESTDIR)$$x || exit $$? ; \
 		touch $(DESTDIR)$$x/.keep || exit $$? ; \
 	done
-	# Don't install runlevels if they already exist
-	if ! test -d $(DESTDIR)/etc/runlevels ; then \
-		(cd runlevels; $(MAKE) install) ; \
-		test -d runlevels.$(OS) && (cd runlevels.$(OS); $(MAKE) install) ; \
-		$(INSTALL_DIR) $(DESTDIR)/etc/runlevels/single || exit $$? ; \
-		$(INSTALL_DIR) $(DESTDIR)/etc/runlevels/nonetwork || exit $$? ; \
-	fi
-	ln -snf ../../$(RC_LIB)/sh/net.sh $(DESTDIR)/etc/init.d/$(NET_LO) || exit $$?
-	ln -snf ../../$(RC_LIB)/sh/functions.sh $(DESTDIR)/etc/init.d || exit $$?
-	# Handle lib correctly
-	if test $(LIB) != "lib" ; then \
-		sed -i'.bak' -e 's,/lib/,/$(LIB)/,g' $(DESTDIR)/$(RC_LIB)/sh/functions.sh || exit $$? ; \
-		rm -f $(DESTDIR)/$(RC_LIB)/sh/functions.sh.bak ; \
-		sed -i'.bak' -e 's,/lib/,/$(LIB)/,g' $(DESTDIR)/$(RC_LIB)/sh/rc-functions.sh || exit $$? ; \
-		rm -f $(DESTDIR)/$(RC_LIB)/sh/rc-functions.sh.bak ; \
-	fi
 
 layout:
 	# Create base filesytem layout
