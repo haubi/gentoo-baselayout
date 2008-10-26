@@ -1,7 +1,7 @@
 # /etc/fstab: static file system information.
 #
 # noatime turns off atimes for increased performance (atimes normally aren't 
-# needed. 
+# needed). 
 #
 # The root filesystem should have a pass number of either 0 or 1.
 # All other filesystems should have a pass number of 0 or greater than 1.
