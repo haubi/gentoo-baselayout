@@ -7,7 +7,7 @@
 # It also has the added bonus of being easier to install on systems
 # without an ebuild style package manager.
 
-PKG = $(shell sed -n '/^\*/s:\*\([^ ]*\).*:\1:p' ChangeLog)
+PKG = $(shell sed -n '/^\*/{s:\*\([^ ]*\).*:\1:;p;q}' ChangeLog)
 
 DESTDIR =
 LIB = lib
