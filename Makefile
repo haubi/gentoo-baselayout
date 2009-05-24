@@ -82,11 +82,11 @@ distlive:
 	ls -l /tmp/$(PKG).tar.bz2
 
 distsvn:
-	rm -rf /tmp/$(PKG)
-	svn export -q . /tmp/$(PKG)
-	tar jcf /tmp/$(PKG).tar.bz2 -C /tmp $(PKG)
-	rm -rf /tmp/$(PKG)
-	ls -l /tmp/$(PKG).tar.bz2
+	rm -rf $(PKG)
+	svn export -q . $(PKG)
+	tar jcf $(PKG).tar.bz2 $(PKG)
+	rm -rf $(PKG)
+	ls -l $(PKG).tar.bz2
 
 dist: diststatus distsvn
 
