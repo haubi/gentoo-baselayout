@@ -1057,6 +1057,10 @@ cba8		9593/tcp			# LANDesk Management Agent
 cba8		9593/udp
 davsrc		9800/tcp			# WebDav Source Port
 davsrc		9800/udp
+sqlexec		9088/tcp			# IBM Informix SQL Interface
+sqlexec		9088/udp
+sqlexec-ssl	9089/tcp			# IBM Informix SQL Interface - Encrypted
+sqlexec-ssl	9089/udp
 sd		9876/tcp			# Session Director
 sd		9876/udp
 cyborg-systems	9888/tcp			# CYBORG Systems
