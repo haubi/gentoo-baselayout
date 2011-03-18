@@ -1,5 +1,5 @@
 # baselayout Makefile
-# Copyright 2006-2008 Gentoo Foundation
+# Copyright 2006-2011 Gentoo Foundation
 # Distributed under the terms of the GNU General Public License v2
 #
 # We've moved the installation logic from Gentoo ebuild into a generic
@@ -7,7 +7,8 @@
 # It also has the added bonus of being easier to install on systems
 # without an ebuild style package manager.
 
-PKG = $(shell sed -n '/^\*/{s:\*\([^ ]*\).*:\1:;p;q}' ChangeLog)
+PV = $(shell cat .pv)
+PKG = baselayout-$(PV)
 
 DESTDIR =
 LIB = lib
@@ -65,6 +66,10 @@ layout:
 	ln -snf share/man $(DESTDIR)/usr/local/man || exit $$?
 
 diststatus:
+	@if [ -z "$(PV)" ] ; then \
+		printf '\nrun: make dist PV=...\n\n'; \
+		exit 1; \
+	fi
 	if test -d .svn ; then \
 		svnfiles=`svn status 2>&1 | egrep -v '^(U|P)'` ; \
 		if test "x$$svnfiles" != "x" ; then \
@@ -85,6 +90,8 @@ distlive:
 distsvn:
 	rm -rf $(PKG)
 	svn export -q . $(PKG)
+	echo $(PV) > $(PKG)/.pv
+	svn log . > $(PKG)/ChangeLog.svn
 	tar jcf $(PKG).tar.bz2 $(PKG)
 	rm -rf $(PKG)
 	ls -l $(PKG).tar.bz2
