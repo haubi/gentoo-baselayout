@@ -37,8 +37,6 @@ KEEP_DIRS = $(KEEP_DIRS-$(OS)) \
 	/root \
 	/usr/local/bin \
 	/usr/local/sbin \
-	/usr/local/share/doc \
-	/usr/local/share/man \
 	/var/empty \
 	/var/lock \
 	/var/run
