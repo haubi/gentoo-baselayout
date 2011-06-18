@@ -67,15 +67,15 @@ layout:
 		touch $(DESTDIR)$$x/.keep || echo "ignoring touch failure; mounted fs?" ; \
 	done
 	# Special dirs
-	install -m 0700 -d $(DESTDIR)/root || exit $$?
-	touch $(DESTDIR)/root/.keep || exit $$?
-	install -m 1777 -d $(DESTDIR)/var/tmp || exit $$?
-	touch $(DESTDIR)/var/tmp/.keep || exit $$?
-	install -m 1777 -d $(DESTDIR)/tmp || exit $$?
-	touch $(DESTDIR)/tmp/.keep || exit $$?
+	install -m 0700 -d $(DESTDIR)/root
+	touch $(DESTDIR)/root/.keep
+	install -m 1777 -d $(DESTDIR)/var/tmp
+	touch $(DESTDIR)/var/tmp/.keep
+	install -m 1777 -d $(DESTDIR)/tmp
+	touch $(DESTDIR)/tmp/.keep
 	# FHS compatibility symlinks stuff
-	ln -snf /var/tmp $(DESTDIR)/usr/tmp || exit $$?
-	ln -snf share/man $(DESTDIR)/usr/local/man || exit $$?
+	ln -snf /var/tmp $(DESTDIR)/usr/tmp
+	ln -snf share/man $(DESTDIR)/usr/local/man
 
 diststatus:
 	@if [ -z "$(PV)" ] ; then \
