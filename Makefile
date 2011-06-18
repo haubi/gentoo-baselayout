@@ -25,11 +25,23 @@ OS=BSD
 endif
 endif
 
-KEEP_DIRS-Linux += /dev /sys
+KEEP_DIRS-Linux += \
+	/dev \
+	/sys
 KEEP_DIRS = $(KEEP_DIRS-$(OS)) \
-	/boot /home /mnt /root /proc /etc/profile.d \
-	/usr/local/bin /usr/local/sbin /usr/local/share/doc /usr/local/share/man \
-	/var/lock /var/run /var/empty
+	/boot \
+	/etc/profile.d \
+	/home \
+	/mnt \
+	/proc \
+	/root \
+	/usr/local/bin \
+	/usr/local/sbin \
+	/usr/local/share/doc \
+	/usr/local/share/man \
+	/var/empty \
+	/var/lock \
+	/var/run
 
 all:
 
