@@ -27,19 +27,26 @@ endif
 
 KEEP_DIRS-Linux += \
 	/dev \
-	/sys
+	/sys \
+	/usr/src
 KEEP_DIRS = $(KEEP_DIRS-$(OS)) \
 	/boot \
 	/etc/profile.d \
 	/home \
+	/media \
 	/mnt \
 	/proc \
+	/opt \
 	/root \
 	/usr/local/bin \
 	/usr/local/sbin \
+	/var/cache \
 	/var/empty \
+	/var/lib \
 	/var/lock \
-	/var/run
+	/var/log \
+	/var/run \
+	/var/spool
 
 all:
 
@@ -71,9 +78,9 @@ layout:
 	touch $(DESTDIR)/var/tmp/.keep
 	install -m 1777 -d $(DESTDIR)/tmp
 	touch $(DESTDIR)/tmp/.keep
+	-chgrp uucp $(DESTDIR)/var/lock
 	# FHS compatibility symlinks stuff
 	ln -snf /var/tmp $(DESTDIR)/usr/tmp
-	ln -snf share/man $(DESTDIR)/usr/local/man
 
 diststatus:
 	@if [ -z "$(PV)" ] ; then \
