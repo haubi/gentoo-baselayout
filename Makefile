@@ -27,6 +27,7 @@ endif
 
 KEEP_DIRS-Linux += \
 	/dev \
+	/run \
 	/sys \
 	/usr/src
 KEEP_DIRS = $(KEEP_DIRS-$(OS)) \
