@@ -54,12 +54,6 @@ all:
 clean:
 
 install:
-	# These dirs may not exist from prior versions
-	for x in $(BASE_DIRS) ; do \
-		$(INSTALL_DIR) $(DESTDIR)$$x || exit $$? ; \
-		touch $(DESTDIR)$$x/.keep || exit $$? ; \
-	done
-
 	$(INSTALL_DIR) $(DESTDIR)/etc
 	cp -pPR etc/* etc.$(OS)/* $(DESTDIR)/etc/
 	$(INSTALL_DIR) $(DESTDIR)/usr/share/baselayout
