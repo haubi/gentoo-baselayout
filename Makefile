@@ -74,6 +74,7 @@ layout:
 	install -m 1777 -d $(DESTDIR)/tmp
 	touch $(DESTDIR)/tmp/.keep
 	-chgrp uucp $(DESTDIR)/var/lock
+	install -m 0775 -d $(DESTDIR)/var/lock
 	# FHS compatibility symlinks stuff
 	ln -snf /var/tmp $(DESTDIR)/usr/tmp
 
