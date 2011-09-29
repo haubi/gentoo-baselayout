@@ -3,7 +3,6 @@
 
 PATH="/opt/bin"
 ROOTPATH="/opt/bin"
-LDPATH="/usr/local/lib"
 MANPATH="/usr/local/share/man:/usr/share/man"
 INFOPATH="/usr/share/info"
 CONFIG_PROTECT_MASK="/etc/gentoo-release"
