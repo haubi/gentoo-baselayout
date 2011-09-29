@@ -11,7 +11,6 @@ PV = $(shell cat .pv)
 PKG = baselayout-$(PV)
 
 DESTDIR =
-LIB = lib
 
 INSTALL_DIR    = install -m 0755 -d
 INSTALL_EXE    = install -m 0755
