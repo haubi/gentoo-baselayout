@@ -43,9 +43,7 @@ KEEP_DIRS = $(KEEP_DIRS-$(OS)) \
 	/var/cache \
 	/var/empty \
 	/var/lib \
-	/var/lock \
 	/var/log \
-	/var/run \
 	/var/spool
 
 all:
@@ -72,8 +70,8 @@ layout:
 	touch $(DESTDIR)/var/tmp/.keep
 	install -m 1777 -d $(DESTDIR)/tmp
 	touch $(DESTDIR)/tmp/.keep
-	-chgrp uucp $(DESTDIR)/var/lock
-	install -m 0775 -d $(DESTDIR)/var/lock
+	ln -snf /run $(DESTDIR)/var/run
+	ln -snf /run/lock $(DESTDIR)/var/lock
 	# FHS compatibility symlinks stuff
 	ln -snf /var/tmp $(DESTDIR)/usr/tmp
 
