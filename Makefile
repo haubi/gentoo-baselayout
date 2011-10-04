@@ -24,6 +24,9 @@ OS=BSD
 endif
 endif
 
+KEEP_DIRS-BSD += \
+	/var/lock \
+	/var/run
 KEEP_DIRS-Linux += \
 	/dev \
 	/run \
@@ -56,13 +59,23 @@ install:
 	$(INSTALL_DIR) $(DESTDIR)/usr/share/baselayout
 	cp -pPR share.$(OS)/* $(DESTDIR)/usr/share/baselayout/
 
-layout:
+layout-dirs:
 	# Create base filesytem layout
 	for x in $(KEEP_DIRS) ; do \
 		test -e $(DESTDIR)$$x/.keep && continue ; \
 		$(INSTALL_DIR) $(DESTDIR)$$x || exit $$? ; \
 		touch $(DESTDIR)$$x/.keep || echo "ignoring touch failure; mounted fs?" ; \
 	done
+
+layout-BSD: layout-dirs
+	-chgrp uucp $(DESTDIR)/var/lock
+	install -m 0775 -d $(DESTDIR)/var/lock
+
+layout-Linux: layout-dirs
+	ln -snf /run $(DESTDIR)/var/run
+	ln -snf /run/lock $(DESTDIR)/var/lock
+
+layout: layout-dirs layout-$(OS)
 	# Special dirs
 	install -m 0700 -d $(DESTDIR)/root
 	touch $(DESTDIR)/root/.keep
@@ -70,8 +83,6 @@ layout:
 	touch $(DESTDIR)/var/tmp/.keep
 	install -m 1777 -d $(DESTDIR)/tmp
 	touch $(DESTDIR)/tmp/.keep
-	ln -snf /run $(DESTDIR)/var/run
-	ln -snf /run/lock $(DESTDIR)/var/lock
 	# FHS compatibility symlinks stuff
 	ln -snf /var/tmp $(DESTDIR)/usr/tmp
 
