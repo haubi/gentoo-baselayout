@@ -701,6 +701,8 @@ concurrent-lm	1648/tcp
 concurrent-lm	1648/udp
 kermit		1649/tcp
 kermit		1649/udp
+groupwise	1677/tcp
+groupwise	1677/udp
 l2tp		1701/tcp
 l2tp		1701/udp
 h323gatedisc	1718/tcp
