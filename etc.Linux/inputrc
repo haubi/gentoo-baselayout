@@ -54,6 +54,9 @@ $if mode=emacs
 "\e[1;3C": forward-word
 "\e[1;3D": backward-word
 
+# Chromebooks remap alt + backspace so provide alternative (alt + k)
+"\ek": backward-kill-word
+
 $if term=rxvt
 "\e[8~": end-of-line
 $endif
