@@ -757,8 +757,8 @@ x25-svc-port	1998/tcp			# cisco X.25 service (XOT)
 x25-svc-port	1998/udp
 tcp-id-port	1999/tcp			# cisco identification port
 tcp-id-port	1999/udp
-cisco-sccp	2000/tcp	sieve		# Cisco SCCP
-cisco-sccp	2000/udp	sieve
+cisco-sccp	2000/tcp			# Cisco SCCP
+cisco-sccp	2000/udp
 nfs		2049/tcp			# Network File System
 nfs		2049/udp
 radsec		2083/tcp			# Secure Radius Service
@@ -917,6 +917,8 @@ xgrid		4111/tcp			# Mac OS X Server Xgrid
 xgrid		4111/udp
 bzr		4155/tcp			# Bazaar Version Control System
 bzr		4155/udp			# Bazaar version control system
+sieve		4190/tcp			# ManageSieve Protocol
+sieve		4190/udp
 rwhois		4321/tcp			# Remote Who Is
 rwhois		4321/udp
 epmd		4369/tcp			# Erlang Port Mapper Daemon
