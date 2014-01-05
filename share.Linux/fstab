@@ -14,9 +14,18 @@
 # <fs>			<mountpoint>	<type>		<opts>		<dump/pass>
 
 # NOTE: If your BOOT partition is ReiserFS, add the notail option to opts.
+#
 # NOTE: Even though we list ext4 as the type here, it will work with ext2/ext3
 #       filesystems.  This just tells the kernel to use the ext4 driver.
-/dev/BOOT		/boot		ext4		noauto,noatime	1 2
-/dev/ROOT		/		ext4		noatime		0 1
-/dev/SWAP		none		swap		sw		0 0
+#
+# NOTE: You can use full paths to devices like /dev/sda3, but nowadays it is
+#       recommended to set labels in the filesystem and mount via that.  All
+#       modern Linux filesystems should support this functionality.  If your
+#       boot partition is /dev/sda1 and is ext4, you can set the label of it
+#       to "boot" by running:
+#         # e2label /dev/sda1 boot
+#       Then the LABEL example below will work for you.
+LABEL=boot		/boot		ext4		noauto,noatime	1 2
+LABEL=root		/		ext4		noatime		0 1
+LABEL=swap		none		swap		sw		0 0
 /dev/cdrom		/mnt/cdrom	auto		noauto,ro	0 0
