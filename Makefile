@@ -7,7 +7,7 @@
 # It also has the added bonus of being easier to install on systems
 # without an ebuild style package manager.
 
-PV = $(shell cat .pv)
+PV = 2.3
 PKG = baselayout-$(PV)
 
 DESTDIR =
