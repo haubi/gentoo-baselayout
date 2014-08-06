@@ -9,6 +9,7 @@
 
 PV = 2.3
 PKG = baselayout-$(PV)
+DISTFILE = $(PKG).tar.bz2
 
 DESTDIR =
 
@@ -86,39 +87,23 @@ layout: layout-dirs layout-$(OS)
 	# FHS compatibility symlinks stuff
 	ln -snf /var/tmp $(DESTDIR)/usr/tmp
 
-diststatus:
-	@if [ -z "$(PV)" ] ; then \
-		printf '\nrun: make dist PV=...\n\n'; \
-		exit 1; \
-	fi
-	if test -d .svn ; then \
-		svnfiles=`svn status 2>&1 | egrep -v '^(U|P)'` ; \
-		if test "x$$svnfiles" != "x" ; then \
-			echo "Refusing to package tarball until svn is in sync:" ; \
-			echo "$$svnfiles" ; \
-			echo "make distforce to force packaging" ; \
-			exit 1 ; \
-		fi \
-	fi 
-
-distlive:
+live:
 	rm -rf /tmp/$(PKG)
 	cp -r . /tmp/$(PKG)
-	tar jcf /tmp/$(PKG).tar.bz2 -C /tmp $(PKG) --exclude=.svn
+	tar jcf /tmp/$(PKG).tar.bz2 -C /tmp $(PKG) --exclude=.git
 	rm -rf /tmp/$(PKG)
 	ls -l /tmp/$(PKG).tar.bz2
 
-distsvn:
-	rm -rf $(PKG)
-	svn export -q . $(PKG)
-	echo $(PV) > $(PKG)/.pv
-	svn log . > $(PKG)/ChangeLog.svn
-	tar jcf $(PKG).tar.bz2 $(PKG)
-	rm -rf $(PKG)
-	ls -l $(PKG).tar.bz2
+release:
+	git show-ref -q --tags $(PKG)
+	git archive --prefix=$(PKG)/ $(PKG) | bzip2 > $(DISTFILE)
+	ls -l $(DISTFILE)
 
-dist: diststatus distsvn
+snapshot:
+	git show-ref -q $(GITREF)
+	git archive --prefix=$(PKG)/ $(GITREF) | bzip2 > $(PKG)-$(GITREF).tar.bz2
+	ls -l $(PKG)-$(GITREF).tar.bz2
 
-.PHONY: all clean install layout dist distforce diststatus
+.PHONY: all clean install layout  live release snapshot
 
 # vim: set ts=4 :
