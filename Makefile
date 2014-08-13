@@ -73,6 +73,7 @@ layout-BSD: layout-dirs
 	install -m 0775 -d $(DESTDIR)/var/lock
 
 layout-Linux: layout-dirs
+	ln -snf /proc/self/mounts $(DESTDIR)/etc/mtab
 	ln -snf /run $(DESTDIR)/var/run
 	ln -snf /run/lock $(DESTDIR)/var/lock
 
