@@ -15,6 +15,7 @@ uucp::14:uucp
 console::17:
 audio::18:
 cdrom::19:
+dialout::20:
 tape::26:root
 video::27:root
 cdrw::80:
