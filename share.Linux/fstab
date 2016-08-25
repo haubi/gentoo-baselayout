@@ -18,14 +18,12 @@
 # NOTE: Even though we list ext4 as the type here, it will work with ext2/ext3
 #       filesystems.  This just tells the kernel to use the ext4 driver.
 #
-# NOTE: You can use full paths to devices like /dev/sda3, but nowadays it is
-#       recommended to set labels in the filesystem and mount via that.  All
-#       modern Linux filesystems should support this functionality.  If your
-#       boot partition is /dev/sda1 and is ext4, you can set the label of it
-#       to "boot" by running:
-#         # e2label /dev/sda1 boot
-#       Then the LABEL example below will work for you.
+# NOTE: You can use full paths to devices like /dev/sda3, but it is often
+#       more reliable to use filesystem labels or UUIDs. See your filesystem
+#       documentation for details on setting a label. To obtain the UUID, use
+#       the blkid(8) command.
+
 #LABEL=boot		/boot		ext4		noauto,noatime	1 2
-#LABEL=root		/		ext4		noatime		0 1
+#UUID=58e72203-57d1-4497-81ad-97655bd56494		/		ext4		noatime		0 1
 #LABEL=swap		none		swap		sw		0 0
 #/dev/cdrom		/mnt/cdrom	auto		noauto,ro	0 0
