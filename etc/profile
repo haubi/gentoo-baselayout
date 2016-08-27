@@ -22,10 +22,6 @@ umask 022
 # There's no real reason to exclude sbin paths from the normal user,
 # but it can make tab-completion easier when they aren't in the
 # user's PATH to pollute the executable namespace.
-#
-# It is intentional in the following line to use || instead of -o.
-# This way the evaluation can be short-circuited and calling whoami is
-# avoided.
 if [ "$EUID" = "0" ] || [ "$USER" = "root" ] ; then
 	PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${ROOTPATH}"
 else
