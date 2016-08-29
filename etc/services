@@ -1166,6 +1166,7 @@ x11-ssh		6010/tcp	x11-ssh-offset
 x11-ssh		6010/udp	x11-ssh-offset
 ircd		6667/tcp			# Internet Relay Chat
 ircd		6667/udp
+ircs-u		6697/tcp			# Internet Relay Chat via TLS/SSL
 jetdirect	9100/tcp			# HP JetDirect card
 jetdirect	9100/udp
 mandelspawn	9359/udp	mandelbrot	# network mandelbrot
