@@ -1,0 +1,256 @@
+commit 8f970ff82c88b86565d88852624da143bb2d5288
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Makefile: add changelog target
+
+commit 89f852f823cad807dc360325ec92817e583835e8
+Author: Martin Vath <martin@mvath.de>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    etc/profile: Make set -u work for the profile
+    
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=555762
+
+commit d32173ea399cc37837985dec55134d1e0e2ebf72
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    etc.Linux/sysctl.comf: disable rp_filter by default
+    
+    See https://lwn.net/Articles/578621/
+    
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=586210
+
+commit db65c12659a298d3795d042079868f171432eb5c
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    etc/services: add assignment for ircs-u
+    
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=592368
+
+commit 4328a2fa4b6abc7f4004da33b351ed6597ac975f
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    etc/services: add gpsd and xmpp-bosh services
+    
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=538708
+
+commit e302b8402399f18ecfe856c854a3d247cc2c646f
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    os-release: Update Gentoo web site and support URLs
+    
+    https://bugs.gentoo.org/show_bug.cgi?id=545516
+
+commit 5ee3c95d2086e626247640ca35cf2da78c4c9846
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    share.Linux/shadow: mark portage user as locked out
+    
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=521970
+
+commit f313f3c5de9fe1e52ef4abc62935090a299a51b8
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    etc/profile: remove comments about whoami
+    
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=587612
+
+commit 24af4fb374c67661fb1bf9dfb842fae70fd7f5f2
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    etc/hosts: document the alias order
+    
+    Add documentation showing that the first host alias is the canonical
+    host name.
+    
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=536624
+
+commit b5f197fc4070f8a1aa6beb2e85944f18c2fb4bbc
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    share.BSD/fstab: make device names generic
+    
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=442690
+
+commit e8bbd89949b85a8359fb691c02fb12f0820f19ac
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    share.Linux/passwd: change "operator" login shell to /sbin/nologin
+    
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=346483
+
+commit 89621f070195cab17d2f4ee6f7ac084946bba02a
+Author: Mike Gilbert <floppym@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    share.Linux/fstab: update advice regarding labels and UUIDS
+
+commit 90edf00e9382044ed33a0e5a7656b0440870f96d
+Author: Mike Gilbert <floppym@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Comment out fstab entries by default
+    
+    Bug: https://bugs.gentoo.org/578390
+
+commit 3150eecd25d834eeee0a7f98bdd8266b2a2a552f
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Revert "remove the uucp user"
+    
+    This reverts commit 2ebb0d7b29132822e8bc6f9b67940541a6261f74.
+    This needs more thought; we have consumers in the tree still. I'm not
+    sure whether we should drop it here or fix the consumers first.
+
+commit 2ebb0d7b29132822e8bc6f9b67940541a6261f74
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    remove the uucp user
+
+commit 18fe9e877b496980256f4a8b3251e416e1afca89
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    add the dialout group
+
+commit d79832c6b962969c5c57f4ff201c476e34e6789d
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Makefile: Add /etc/mtab symbolic link to layout-Linux
+    
+    Add a symbolic link from /etc/mtab to /proc/self/mounts to the
+    layout-Linux target so that it will be built in the stages.
+    
+    X-Gentoo-Bug: 477498
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=477498
+
+commit f25b3dbc3c55e4f24d8c58ccc3278a8f6eb0def8
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Add input group
+    
+    Anyone other than root who wants access to /dev/input/* should be added
+    to this group.
+    
+    I used gid 97 which is the same gid Archlinux uses.
+    
+    X-Gentoo-Bug: 514174
+    X-Gentoo-Bug-URL: https://bugs.gentoo.org/show_bug.cgi?id=514174
+
+commit 62f7c82bf8b0bdbec552b912e0f2e698fd23935f
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Begin updating Makefile to work with git
+    
+    Make live is used to make a tarball of the repository with all local
+    changes.
+    
+    make release is used to make a release once it is tagged.
+    
+    make snapshot is a work in progress; it is supposed to make a tarball of
+    the commit passed to it via GITREF=<commit>. The part that is missing is
+    I haven't decided how to name that tarball.
+
+commit 6d46bae57015554d60cb66b1570d0016c9e6f076
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Set version in Makefile
+    
+    The PV variable in Makefile now holds the version number directly
+    instead of reading it from an external file.
+
+commit 3f7fc93e8d79fcb55405222c3206cdf64a471307
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    add /bin/dash as a valid login shell
+    
+    svn path=/trunk/; revision=3213
+
+commit 6b5c32b48a2c8b39dec8bcbcce6044fa970b9442
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    fstab: mount by LABEL by default #496562 by Sergey S. Starikoff
+    
+    svn path=/trunk/; revision=3212
+
+commit 39dd1d4bd755a8f4ec4bb8dcb1ab6aefabe27192
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    fstab: drop floppy example as it is rare for this to exist nowadays
+    
+    svn path=/trunk/; revision=3211
+
+commit 1a30e631f7a41c7d53a9744aed76c4083b361cae
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    services: change sieve from port 2000 to 4190 #485298 by Hanno Boeck
+    
+    svn path=/trunk/; revision=3210
+
+commit 527d2c8e4e4fbdb1d9f7733f351756529d27e021
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    add tip about using ~/.inputrc
+    
+    svn path=/trunk/; revision=3209
+
+commit cda4fd02d3fd586dca98dc360d40f219b60543f0
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    add an alt+k shortcut that does the same thing as alt+backspace to support devices (like chromebooks) where alt+backspace is remapped to something else already
+    
+    svn path=/trunk/; revision=3208
+
+commit b4293c172fce7159c3357bd6bbf79b9140e53d9f
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    rename to COPYING to match the rest of the world+dog, and add some more info about state of various files
+    
+    svn path=/trunk/; revision=3207
+
+commit 6fc385683bf0bf701b7fa7b50e1ccfa505882730
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    fstab: default to using ext4 to mount things #451596
+    
+    svn path=/trunk/; revision=3206
+
+commit 6f0adbb7648cebbe9f60f2294bbf4e4e1eca7b08
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    sysctl.conf: document new net.ipv4.ping_group_range option
+    
+    svn path=/trunk/; revision=3205
+
+commit b00938750ab6907736398460544a214e25300c06
+Author: Mike Frysinger <vapier@gentoo.org>
+Commit: Mike Frysinger <vapier@gentoo.org>
+
+    add groupwise to /etc/services #432550 by Jon Gerdes
+    
+    svn path=/trunk/; revision=3204
