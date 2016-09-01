@@ -13,6 +13,7 @@ DISTFILE = $(PKG).tar.bz2
 
 DESTDIR =
 
+CHANGELOG_LIMIT = --after="1 year ago"
 INSTALL_DIR    = install -m 0755 -d
 INSTALL_EXE    = install -m 0755
 INSTALL_FILE   = install -m 0644
@@ -51,6 +52,9 @@ KEEP_DIRS = $(KEEP_DIRS-$(OS)) \
 	/var/spool
 
 all:
+
+changelog:
+	git log ${CHANGELOG_LIMIT} --format=full > ChangeLog
 
 clean:
 
@@ -105,6 +109,6 @@ snapshot:
 	git archive --prefix=$(PKG)/ $(GITREF) | bzip2 > $(PKG)-$(GITREF).tar.bz2
 	ls -l $(PKG)-$(GITREF).tar.bz2
 
-.PHONY: all clean install layout  live release snapshot
+.PHONY: all changelog clean install layout  live release snapshot
 
 # vim: set ts=4 :
