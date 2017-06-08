@@ -23,9 +23,7 @@ umask 022
 # but it can make tab-completion easier when they aren't in the
 # user's PATH to pollute the executable namespace.
 if [ "${EUID-}" = "0" ] || [ "${USER-}" = "root" ] ; then
-	PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin${ROOTPATH:+:}${ROOTPATH-}"
-else
-	PATH="/usr/local/bin:/usr/bin:/bin${PATH:+:}${PATH-}"
+	PATH="${ROOTPATH}"
 fi
 export PATH
 unset ROOTPATH
