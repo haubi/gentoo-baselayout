@@ -11,8 +11,6 @@ PV = 2.4.1
 PKG = baselayout-$(PV)
 DISTFILE = $(PKG).tar.bz2
 
-DESTDIR =
-
 CHANGELOG_LIMIT = --after="1 year ago"
 INSTALL_DIR    = install -m 0755 -d
 INSTALL_EXE    = install -m 0755
