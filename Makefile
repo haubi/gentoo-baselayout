@@ -7,7 +7,7 @@
 # It also has the added bonus of being easier to install on systems
 # without an ebuild style package manager.
 
-PV = 2.4.1
+PV = 2.5
 PKG = baselayout-$(PV)
 DISTFILE = $(PKG).tar.bz2
 
