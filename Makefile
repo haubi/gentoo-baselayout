@@ -90,6 +90,11 @@ layout: layout-dirs layout-$(OS)
 	# FHS compatibility symlinks stuff
 	ln -snf /var/tmp $(DESTDIR)/usr/tmp
 
+layout-usrmerge: layout
+	ln -snf usr/bin ${DESTDIR}/bin
+	ln -snf usr/sbin ${DESTDIR}/sbin
+	ln -snf bin ${DESTDIR}/usr/sbin
+
 live:
 	rm -rf /tmp/$(PKG)
 	cp -r . /tmp/$(PKG)
