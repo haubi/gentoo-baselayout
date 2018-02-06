@@ -65,9 +65,7 @@ install:
 layout-dirs:
 	# Create base filesytem layout
 	for x in $(KEEP_DIRS) ; do \
-		test -e $(DESTDIR)$$x/.keep && continue ; \
 		$(INSTALL_DIR) $(DESTDIR)$$x || exit $$? ; \
-		touch $(DESTDIR)$$x/.keep || echo "ignoring touch failure; mounted fs?" ; \
 	done
 
 layout-BSD: layout-dirs
@@ -82,11 +80,8 @@ layout-Linux: layout-dirs
 layout: layout-dirs layout-$(OS)
 	# Special dirs
 	install -m 0700 -d $(DESTDIR)/root
-	touch $(DESTDIR)/root/.keep
 	install -m 1777 -d $(DESTDIR)/var/tmp
-	touch $(DESTDIR)/var/tmp/.keep
 	install -m 1777 -d $(DESTDIR)/tmp
-	touch $(DESTDIR)/tmp/.keep
 	# FHS compatibility symlinks stuff
 	ln -snf /var/tmp $(DESTDIR)/usr/tmp
 
