@@ -86,9 +86,11 @@ layout: layout-dirs layout-$(OS)
 	ln -snf /var/tmp $(DESTDIR)/usr/tmp
 
 layout-usrmerge: layout
+ifeq ($(OS),Linux)
 	ln -snf usr/bin ${DESTDIR}/bin
 	ln -snf usr/sbin ${DESTDIR}/sbin
 	ln -snf bin ${DESTDIR}/usr/sbin
+endif
 
 live:
 	rm -rf /tmp/$(PKG)
