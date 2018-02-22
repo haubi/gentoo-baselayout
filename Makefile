@@ -66,6 +66,7 @@ layout-dirs:
 	# Create base filesytem layout
 	for x in $(KEEP_DIRS) ; do \
 		$(INSTALL_DIR) $(DESTDIR)$$x || exit $$? ; \
+		touch $(DESTDIR)$$x/.keep || exit $$? ; \
 	done
 
 layout-BSD: layout-dirs
@@ -80,8 +81,11 @@ layout-Linux: layout-dirs
 layout: layout-dirs layout-$(OS)
 	# Special dirs
 	install -m 0700 -d $(DESTDIR)/root
+	touch $(DESTDIR)/root/.keep
 	install -m 1777 -d $(DESTDIR)/var/tmp
+	touch $(DESTDIR)/var/tmp/.keep
 	install -m 1777 -d $(DESTDIR)/tmp
+	touch $(DESTDIR)/tmp/.keep
 	# FHS compatibility symlinks stuff
 	ln -snf /var/tmp $(DESTDIR)/usr/tmp
 
