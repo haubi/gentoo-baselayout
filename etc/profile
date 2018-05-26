@@ -28,7 +28,7 @@ fi
 export PATH
 unset ROOTPATH
 
-# process *.sh files in /etc/profiled.d
+# process *.sh files in /etc/profile.d
 for sh in /etc/profile.d/*.sh ; do
 	[ -r "$sh" ] && . "$sh"
 done
