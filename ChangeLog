@@ -1,3 +1,55 @@
+commit dd9f112d8d400892ed9b610aee187040df307298
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    bump version to 2.6
+
+commit 8974c87e2d0e243c0fc2503fac5b40f447fac65f
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    profile: don't use ROOTPATH
+    
+    Since PATH is supposed to be the same for everyone, we can now drop the
+    code that handles ROOTPATH.
+
+commit 6e06295fd89f6e0605406dabbd7684171c034d4e
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    etc/profile: typo fix
+
+commit d56d1e147b23e972036fa9f6727bb2a675154435
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Makefile: do not touch .keep file if it already exists
+
+commit c41104c34243115adc668fdb4280d991f8e401b9
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    makefile: ignore touch failures for .keep files
+    
+    emerging with this being fatal worked for me, but not others, so
+    ignoring it.
+
+commit 277e5b9e55717873b87eb541a95f4f2ae0c60a4d
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Add sbin directories to path
+    
+    This is a partial revert of 9cac4dd130637fa2c1f1a64bf3c9d2509284e6dd.
+    We need to have path and rootpath be the same, to allow transitioning
+    packages before we drop rootpath.
+
+commit 2a075fb8bbffdbe3d948e2379a2300729a7bab93
+Author: William Hubbs <williamh@gentoo.org>
+Commit: William Hubbs <williamh@gentoo.org>
+
+    Update ChangeLog
+
 commit bc596e56ff93ca121317a12d7033c5a5f5440046
 Author: William Hubbs <williamh@gentoo.org>
 Commit: William Hubbs <williamh@gentoo.org>
