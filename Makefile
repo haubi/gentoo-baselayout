@@ -182,6 +182,8 @@ layout: layout-$(OS)
 
 layout-usrmerge: layout
 ifneq ($(OS),BSD)
+	# usrmerge symlinks
+	$(INSTALL_DIR) $(DESTDIR)$(EPREFIX)/usr/bin
 	ln -snf usr/bin $(DESTDIR)$(EPREFIX)/bin
 	ln -snf usr/sbin $(DESTDIR)$(EPREFIX)/sbin
 	ln -snf bin $(DESTDIR)$(EPREFIX)/usr/sbin
