@@ -22,6 +22,9 @@ INSTALL_SECURE = install -m 0600
 OS ?=
 EPREFIX ?=
 ROOT ?=
+BROOT ?=
+# fallback support for EAPI 6 environment
+BROOT ?= $(PORTAGE_OVERRIDE_EPREFIX)
 
 ifeq ($(OS),)
 OS=$(shell uname -s)
@@ -79,7 +82,10 @@ ETCFILES-Linux += \
 	etc.Linux/modprobe.d/i386.conf \
 	etc.Linux/sysctl.conf
 ETCFILES-prefix-guest += \
-	gen-etc.prefix-guest/env.d/99host
+	gen-etc.$(OS)/env.d/99host
+ETCFILES-prefix-stack += \
+	$(ETCFILES-prefix-guest) \
+	gen-etc.prefix-stack/env.d/00host
 ETCFILES = $(ETCFILES-$(OS)) \
 	etc/env.d/50baselayout \
 	etc/profile
@@ -110,6 +116,16 @@ gen-etc.prefix-guest/env.d/99host:
 	{ echo PATH=/usr/sbin:/usr/bin:/sbin:/bin \
 	; ! test -d '$(ROOT)/usr/share/man' || echo MANPATH=/usr/share/man \
 	; } > $@
+
+gen-etc.prefix-stack/env.d/99host:
+	# Query PATH,MANPATH from base prefix
+	$(INSTALL_DIR) $(@D)
+	sed -n -E '/^export (PATH|MANPATH)=/{s/^export //;p}' '$(BROOT)'/etc/profile.env > $@
+
+gen-etc.prefix-stack/env.d/00host:
+	# Query EDITOR,PAGER from base prefix
+	$(INSTALL_DIR) $(@D)
+	sed -n -E '/^export (EDITOR|PAGER)=/{s/^export //;p}' '$(BROOT)'/etc/profile.env > $@
 
 install: $(ETCFILES) $(SHAREFILES)
 	test -n '$(DESTDIR)'
