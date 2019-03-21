@@ -118,36 +118,36 @@ install:
 layout-dirs:
 	# Create base filesytem layout
 	for x in $(KEEP_DIRS) ; do \
-		test -e $(DESTDIR)$$x/.keep && continue ; \
-		$(INSTALL_DIR) $(DESTDIR)$$x || exit $$? ; \
-		touch $(DESTDIR)$$x/.keep || echo "ignoring touch failure; mounted fs?" ; \
+		test -e $(DESTDIR)$(EPREFIX)$$x/.keep && continue ; \
+		$(INSTALL_DIR) $(DESTDIR)$(EPREFIX)$$x || exit $$? ; \
+		touch $(DESTDIR)$(EPREFIX)$$x/.keep || echo "ignoring touch failure; mounted fs?" ; \
 	done
 
 layout-BSD: layout-dirs
-	-chgrp uucp $(DESTDIR)/var/lock
-	install -m 0775 -d $(DESTDIR)/var/lock
+	-chgrp uucp $(DESTDIR)$(EPREFIX)/var/lock
+	install -m 0775 -d $(DESTDIR)$(EPREFIX)/var/lock
 
 layout-Linux: layout-dirs
-	ln -snf /proc/self/mounts $(DESTDIR)/etc/mtab
-	ln -snf /run $(DESTDIR)/var/run
-	ln -snf /run/lock $(DESTDIR)/var/lock
+	ln -snf /proc/self/mounts $(DESTDIR)$(EPREFIX)/etc/mtab
+	ln -snf /run $(DESTDIR)$(EPREFIX)/var/run
+	ln -snf /run/lock $(DESTDIR)$(EPREFIX)/var/lock
 
 layout: layout-dirs layout-$(OS)
 	# Special dirs
-	install -m 0700 -d $(DESTDIR)/root
-	touch $(DESTDIR)/root/.keep
-	install -m 1777 -d $(DESTDIR)/var/tmp
-	touch $(DESTDIR)/var/tmp/.keep
-	install -m 1777 -d $(DESTDIR)/tmp
-	touch $(DESTDIR)/tmp/.keep
+	install -m 0700 -d $(DESTDIR)$(EPREFIX)/root
+	touch $(DESTDIR)$(EPREFIX)/root/.keep
+	install -m 1777 -d $(DESTDIR)$(EPREFIX)/var/tmp
+	touch $(DESTDIR)$(EPREFIX)/var/tmp/.keep
+	install -m 1777 -d $(DESTDIR)$(EPREFIX)/tmp
+	touch $(DESTDIR)$(EPREFIX)/tmp/.keep
 	# FHS compatibility symlinks stuff
-	ln -snf /var/tmp $(DESTDIR)/usr/tmp
+	ln -snf $(EPREFIX)/var/tmp $(DESTDIR)$(EPREFIX)/usr/tmp
 
 layout-usrmerge: layout
 ifeq ($(OS),Linux)
-	ln -snf usr/bin ${DESTDIR}/bin
-	ln -snf usr/sbin ${DESTDIR}/sbin
-	ln -snf bin ${DESTDIR}/usr/sbin
+	ln -snf usr/bin $(DESTDIR)$(EPREFIX)/bin
+	ln -snf usr/sbin $(DESTDIR)$(EPREFIX)/sbin
+	ln -snf bin $(DESTDIR)$(EPREFIX)/usr/sbin
 endif
 
 live:
