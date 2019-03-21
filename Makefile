@@ -21,6 +21,7 @@ INSTALL_SECURE = install -m 0600
 # if not, take them from environment, or use fallbacks
 OS ?=
 EPREFIX ?=
+ROOT ?=
 
 ifeq ($(OS),)
 OS=$(shell uname -s)
@@ -29,23 +30,26 @@ OS=BSD
 endif
 endif
 
+KEEP_DIRS-OS += \
+	/boot \
+	/home \
+	/media \
+	/mnt \
+	/opt \
+	/proc \
+	/root
 KEEP_DIRS-BSD += \
+	$(KEEP_DIRS-OS) \
 	/var/lock \
 	/var/run
 KEEP_DIRS-Linux += \
+	$(KEEP_DIRS-OS) \
 	/dev \
 	/run \
 	/sys \
 	/usr/src
 KEEP_DIRS = $(KEEP_DIRS-$(OS)) \
-	/boot \
 	/etc/profile.d \
-	/home \
-	/media \
-	/mnt \
-	/proc \
-	/opt \
-	/root \
 	/usr/local/bin \
 	/usr/local/sbin \
 	/var/cache \
@@ -54,26 +58,31 @@ KEEP_DIRS = $(KEEP_DIRS-$(OS)) \
 	/var/log \
 	/var/spool
 
+ETCFILE-OS += \
+	etc.$(OS)/issue \
+	etc.$(OS)/issue.logo \
+	etc.$(OS)/os-release \
+	etc/hosts \
+	etc/networks \
+	etc/protocols \
+	etc/services \
+	etc/shells
 ETCFILES-BSD += \
+	$(ETCFILE-OS) \
 	etc.BSD/COPYRIGHT \
 	etc.BSD/login.conf
 ETCFILES-Linux += \
+	$(ETCFILE-OS) \
 	etc.Linux/filesystems \
 	etc.Linux/inputrc \
 	etc.Linux/modprobe.d/aliases.conf \
 	etc.Linux/modprobe.d/i386.conf \
 	etc.Linux/sysctl.conf
+ETCFILES-prefix-guest += \
+	gen-etc.prefix-guest/env.d/99host
 ETCFILES = $(ETCFILES-$(OS)) \
-	etc.$(OS)/issue \
-	etc.$(OS)/issue.logo \
-	etc.$(OS)/os-release \
 	etc/env.d/50baselayout \
-	etc/hosts \
-	etc/networks \
-	etc/profile \
-	etc/protocols \
-	etc/services \
-	etc/shells
+	etc/profile
 
 SHAREFILES-OS += \
 	share.$(OS)/fstab \
@@ -95,7 +104,14 @@ changelog:
 
 clean:
 
-install:
+gen-etc.prefix-guest/env.d/99host:
+	# Define PATH,MANPATH for host system
+	$(INSTALL_DIR) $(@D)
+	{ echo PATH=/usr/sbin:/usr/bin:/sbin:/bin \
+	; ! test -d '$(ROOT)/usr/share/man' || echo MANPATH=/usr/share/man \
+	; } > $@
+
+install: $(ETCFILES) $(SHAREFILES)
 	test -n '$(DESTDIR)'
 	instfiles= ; \
 	for srcf in $(ETCFILES) ; do \
@@ -123,19 +139,24 @@ layout-dirs:
 		touch $(DESTDIR)$(EPREFIX)$$x/.keep || echo "ignoring touch failure; mounted fs?" ; \
 	done
 
-layout-BSD: layout-dirs
+layout-$(OS): layout-dirs
+
+layout-OS:
+	# Special dirs
+	install -m 0700 -d $(DESTDIR)$(EPREFIX)/root
+	touch $(DESTDIR)$(EPREFIX)/root/.keep
+
+layout-BSD: layout-OS
 	-chgrp uucp $(DESTDIR)$(EPREFIX)/var/lock
 	install -m 0775 -d $(DESTDIR)$(EPREFIX)/var/lock
 
-layout-Linux: layout-dirs
+layout-Linux: layout-OS
 	ln -snf /proc/self/mounts $(DESTDIR)$(EPREFIX)/etc/mtab
 	ln -snf /run $(DESTDIR)$(EPREFIX)/var/run
 	ln -snf /run/lock $(DESTDIR)$(EPREFIX)/var/lock
 
-layout: layout-dirs layout-$(OS)
+layout: layout-$(OS)
 	# Special dirs
-	install -m 0700 -d $(DESTDIR)$(EPREFIX)/root
-	touch $(DESTDIR)$(EPREFIX)/root/.keep
 	install -m 1777 -d $(DESTDIR)$(EPREFIX)/var/tmp
 	touch $(DESTDIR)$(EPREFIX)/var/tmp/.keep
 	install -m 1777 -d $(DESTDIR)$(EPREFIX)/tmp
@@ -144,7 +165,7 @@ layout: layout-dirs layout-$(OS)
 	ln -snf $(EPREFIX)/var/tmp $(DESTDIR)$(EPREFIX)/usr/tmp
 
 layout-usrmerge: layout
-ifeq ($(OS),Linux)
+ifneq ($(OS),BSD)
 	ln -snf usr/bin $(DESTDIR)$(EPREFIX)/bin
 	ln -snf usr/sbin $(DESTDIR)$(EPREFIX)/sbin
 	ln -snf bin $(DESTDIR)$(EPREFIX)/usr/sbin
