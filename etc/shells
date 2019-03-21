@@ -1,12 +1,12 @@
-# /etc/shells: valid login shells
-/bin/bash
-/bin/csh
-/bin/dash
-/bin/esh
-/bin/fish
-/bin/ksh
-/bin/mksh
-/bin/sash
-/bin/sh
-/bin/tcsh
-/bin/zsh
+# @GENTOO_PORTAGE_EPREFIX@/etc/shells: valid login shells
+@GENTOO_PORTAGE_EPREFIX@/bin/bash
+@GENTOO_PORTAGE_EPREFIX@/bin/csh
+@GENTOO_PORTAGE_EPREFIX@/bin/dash
+@GENTOO_PORTAGE_EPREFIX@/bin/esh
+@GENTOO_PORTAGE_EPREFIX@/bin/fish
+@GENTOO_PORTAGE_EPREFIX@/bin/ksh
+@GENTOO_PORTAGE_EPREFIX@/bin/mksh
+@GENTOO_PORTAGE_EPREFIX@/bin/sash
+@GENTOO_PORTAGE_EPREFIX@/bin/sh
+@GENTOO_PORTAGE_EPREFIX@/bin/tcsh
+@GENTOO_PORTAGE_EPREFIX@/bin/zsh
