@@ -88,6 +88,7 @@ ETCFILES-prefix-stack += \
 	gen-etc.prefix-stack/env.d/00host
 ETCFILES = $(ETCFILES-$(OS)) \
 	etc/env.d/50baselayout \
+	gen-etc.$(OS)/gentoo-release \
 	etc/profile
 
 SHAREFILES-OS += \
@@ -109,6 +110,18 @@ changelog:
 	git log ${CHANGELOG_LIMIT} --format=full > ChangeLog
 
 clean:
+
+gen-etc.Linux/gentoo-release gen-etc.BSD/gentoo-release:
+	$(INSTALL_DIR) $(@D)
+	echo "Gentoo Base System release $(PV)" > $@
+
+gen-etc.prefix-guest/gentoo-release:
+	$(INSTALL_DIR) $(@D)
+	echo "Gentoo Prefix Base System release $(PV)" > $@
+
+gen-etc.prefix-stack/gentoo-release:
+	$(INSTALL_DIR) $(@D)
+	echo "Gentoo Prefix Stack Base System release $(PV)" > $@
 
 gen-etc.prefix-guest/env.d/99host:
 	# Define PATH,MANPATH for host system
