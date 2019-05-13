@@ -131,9 +131,9 @@ gen-etc.prefix-guest/env.d/99host:
 	; } > $@
 
 gen-etc.prefix-stack/env.d/99host:
-	# Query PATH,MANPATH from base prefix
+	# Query PATH,ROOTPATH,MANPATH from base prefix
 	$(INSTALL_DIR) $(@D)
-	sed -n -E '/^export (PATH|MANPATH)=/{s/^export //;p}' '$(BROOT)'/etc/profile.env > $@
+	sed -n -E '/^export (PATH|ROOTPATH|MANPATH)=/{s/^export //;p}' '$(BROOT)'/etc/profile.env > $@
 
 gen-etc.prefix-stack/env.d/00host:
 	# Query EDITOR,PAGER from base prefix
